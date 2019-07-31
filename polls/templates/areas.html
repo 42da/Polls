@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+<div class="container">
+<h1 style="margin-top: 30px;">축구의 신 in {{area}}</h1>
+<br>
+{% if poll %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td><B>이름</B></td>
+            <td><B>소개</B></td>
+            <td><B>번호</B></td>
+            <td><B>투표하기</B></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for candidate in candidates %}
+        <tr>
+            <td> {{ candidate.name }}</td>
+            <td> {{ candidate.introduction }} </td>
+            <td> 번호{{ candidate.party_number }}번 </td>
+            <td>
+                <form action = "{% url 'polls' poll.id %}" method="post">
+                <!--poll이라는 함수에 id값을 url경로를 포함하여 전달, 추후 urls.py와 views.py에서 처리해야함-->
+                {% csrf_token %}
+                <!--아무나 이와같은 포스트를 할 수 없도록 하고 해당 토큰을 가지고있는 클라이언트만 포스트 할 수 있도록 함-->
+                    <button name="choice" value="{{candidate.id}}">선택</button>
+                                        <!--선택한 후보의 id값 전달-->
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+투표가 종료되었거나 없습니다. <br>
+투표를 새로 시작해주세요. <br>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td><B>기간</B></td>
+        {% for result in poll_result %}
+        {% for name in result.names%}
+        <td><B>{{name}}</B></td>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td> {{result.start_date.year}}/{{result.start_date.month}}/{{result.start_date.day}}~{{result.end_date.year}}/{{result.end_date.month}}/{{result.end_date.day}} </td>
+            {% for rate in result.rates %}
+            <td> {{rate}}%</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}    
+    <tbody>
+</table>
+
+{% endif %}
+</div>
+</body>
+{% endblock %}

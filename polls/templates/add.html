@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 style="margin-top: 30px;">후보를 추가해주세요.</h1>
+    <form action="{% url 'create' %}">
+
+        <div class="form-group">
+          <label for="candidate-name">후보 이름</label>
+          <input type="text" class="form-control" id="candidate-name" placeholder="손흥민" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="candidate-area">후보 지역</label>
+            <input type="text" class="form-control" id="candidate-area" placeholder="대한민국" name="area">
+        </div>
+
+        <div class="form-group">
+          <label for="candidate-partynumber">후보 번호</label>
+          <input type="number" class="form-control" id="candidate-partynumber" placeholder="2" name="party_number">
+
+        <div class="form-group">
+          <label for="candidate-introduction">후보 소개</label>
+          <textarea class="form-control" id="candidate-introduction" rows="3" placeholder="축구의 신 손흥민 입니다." name="introduction"></textarea>
+        </div>
+
+        <br>
+        <h2>이미 투표가 진행중인 지역은 후보자 정보만 제출해도 됩니다.</h2>
+        <br>
+
+        <div class="form-group">
+            <label for="start-date">투표 시작</label>
+            <input type="date" class="form-control" id="start-date" placeholder="날짜를 선택해주세요." name="start_date">
+        </div>
+
+        <div class="form-group">
+            <label for="end-date">투표 종료</label>
+            <input type="date" class="form-control" id="end-date" placeholder="날짜를 선택해주세요." name="end_date">
+        </div>
+
+        <div class="form-group">
+            <label for="time">투표 종료</label>
+            <input type="time" class="form-control" id="time" placeholder="시간을 정해주세요." name="time">
+        </div>        
+        <button class="btn btn-primary" type="submit">추가하기</button>
+    </form>
+</div>
+{% endblock %}

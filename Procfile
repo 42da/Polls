@@ -1,0 +1,1 @@
+web: gunicorn surVey.wsgi --log-file -
